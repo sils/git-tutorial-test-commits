@@ -88,7 +88,48 @@ $ git branch
 
 The branch command shows us what branches are available. Obviously there is this master branch there - which corresponds finely to the `refs/heads/master` file.
 
-## TODO CHECKOUT
+## Going Back in Time
+
+So let's time travel a bit!
+
+```
+$ git log
+commit 7b4977cdfb3f304feffa6fc22de1007dd2bebf26
+Author: Lasse Schuirmann <lasse.schuirmann@gmail.com>
+Date:   Fri Feb 27 16:39:11 2015 +0100
+
+    README: Add usage instructions
+
+commit ec6c903a0a18960cd73df18897e56738c4c6bb51
+Author: Lasse Schuirmann <lasse.schuirmann@gmail.com>
+Date:   Fri Feb 27 14:12:01 2015 +0100
+
+    Add README
+```
+
+No let's do the magic:
+
+```
+$ git checkout ec6c903
+Note: checking out 'ec6c903'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -b with the checkout command again. Example:
+
+  git checkout -b new_branch_name
+
+HEAD is now at ec6c903... Add README
+$ cat README
+Hello World!
+$ cat .git/HEAD
+ec6c903a0a18960cd73df18897e56738c4c6bb51
+```
+
+So what we've done is actually resetting the files in our directory to the state of the commit ec6c903. In addition to that the `HEAD` file in our repository was set to that commit too so when we commit something, ec6c903 will be the parent of the new commit.
 
 ## Committing on a Branch
 
